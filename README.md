@@ -16,7 +16,7 @@ A number of projects together make up the entire `scanpiler` suite.  The followi
 | [scanpiler-deno-lib](https://github.com/littlelanguages/scanpiler-deno-lib) | A library that all Deno generated scanners will need to include.  `scanpiler` was built using `scanpiler` and therefore this project has a dependecy on this Deno library. | |
 | [scanpiler-tool-deno](https://github.com/littlelanguages/scanpiler-tool-deno) | Given a scanner definition this tool will produce a scanner in Typescript that can be included into a Deno code base. | [scanpiler](https://github.com/littlelanguages/scanpiler), [scanpiler-deno-lib](https://github.com/littlelanguages/scanpiler-deno-lib) |
 | [scanpiler-tool-viz](https://github.com/littlelanguages/scanpiler-tool-viz) | Given an FA (Finite State Automaton) this tool is able to produce a [Graphviz](https://graphviz.org) visualisation of the FA in the dot format.  This visualisation is useful when interpretting the generated code from `scanpliler`'s tools. | [scanpiler](https://github.com/littlelanguages/scanpiler) |
-| [scanpiler-bin](https://github.com/littlelanguages/scanpiler-bin) | A single CLI that encompasses all of the `scanpiler` tools. | [scanpiler-tool-deno](https://github.com/littlelanguages/scanpiler-tool-deno), [scanpiler-tool-viz](https://github.com/littlelanguages/scanpiler-tool-viz) |
+| [scanpiler-cli](https://github.com/littlelanguages/scanpiler-cli) | A single CLI that encompasses all of the `scanpiler` tools. | [scanpiler-tool-deno](https://github.com/littlelanguages/scanpiler-tool-deno), [scanpiler-tool-viz](https://github.com/littlelanguages/scanpiler-tool-viz) |
 
 
 ## Input Syntax
