@@ -31,7 +31,7 @@ Definition:
     ["whitespace" Expr ";"]
     ["fragments" {Identifier "=" Expr ";"}]
 
-Comment: Expr ["to" Expr ["nested"] ";"];
+Comment: Expr ["to" Expr ["nested"]];
 
 Expr: SequenceExpr {"|" SequenceExpr};
 
