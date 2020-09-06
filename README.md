@@ -29,7 +29,7 @@ Definition:
     ["tokens" {Identifier "=" Expr ";"}]
     ["comments" {Comment ";"}]
     ["whitespace" Expr ";"]
-    ["fragments" {Identifier "=" Expr ";"}]
+    ["fragments" {Identifier "=" Expr ";"}];
 
 Comment: Expr ["to" Expr ["nested"]];
 
