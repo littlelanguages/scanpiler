@@ -1,4 +1,4 @@
-import * as PP from "https://raw.githubusercontent.com/littlelanguages/deno-lib-text-prettyprint/0.2.2/mod.ts";
+import * as PP from "https://raw.githubusercontent.com/littlelanguages/deno-lib-text-prettyprint/0.3.0/mod.ts";
 
 import { Token, TToken } from "./scanner.ts";
 import { Location } from "./location.ts";
@@ -89,7 +89,7 @@ export function asDoc(
         "Unexpected token ",
         ttokenAsString(errorItem.found[0]),
         ". Expected ",
-        commaOr(errorItem.expected.map(ttokenAsString)),
+        PP.join(errorItem.expected.map(ttokenAsString), ", ", " or "),
         errorLocation(errorItem.found[1], fileName),
       ]);
 
@@ -235,30 +235,5 @@ export function errorLocation(
     return `${fileNamePrefix}${location.start.line}:${location.start.column}-${location.end.column}`;
   } else {
     return `${fileNamePrefix}${location.start.line}:${location.start.column}-${location.end.line}:${location.end.column}`;
-  }
-}
-
-export function commaOr(items: Array<PP.Doc | string>): PP.Doc {
-  if (items.length == 0) {
-    return PP.blank;
-  } else {
-    const result = [];
-    let index = 0;
-
-    while (true) {
-      if (index == items.length - 1) {
-        if (index > 0) {
-          result.push(" or ");
-        }
-        result.push(items[index]);
-        break;
-      } else if (index > 0) {
-        result.push(", ");
-      }
-      result.push(items[index]);
-      index += 1;
-    }
-
-    return PP.hcat(result);
   }
 }
