@@ -1,3 +1,5 @@
+import * as PP from "https://raw.githubusercontent.com/littlelanguages/deno-lib-text-prettyprint/0.2.2/mod.ts";
+
 import { Token, TToken } from "./scanner.ts";
 import { Location } from "./location.ts";
 
@@ -76,3 +78,187 @@ export type UnknownFragmentIdentifierError = {
   location: Location;
   name: string;
 };
+
+export function asDoc(
+  errorItem: ErrorItem,
+  fileName: string | undefined = undefined,
+): PP.Doc {
+  switch (errorItem.tag) {
+    case "StaticSyntaxError":
+      return PP.hcat([
+        "Unexpected token ",
+        ttokenAsString(errorItem.found[0]),
+        ". Expected ",
+        commaOr(errorItem.expected.map(ttokenAsString)),
+        errorLocation(errorItem.found[1], fileName),
+      ]);
+
+    case "ChrOutOfRangeError":
+      return PP.hcat([
+        "chr argument of ",
+        PP.number(errorItem.code),
+        " must be in the range 0..255",
+        errorLocation(errorItem.location, fileName),
+      ]);
+
+    case "CommentNotCharacterClassError":
+      return PP.hcat([
+        "whitespace must be a character class rather than a regular expression",
+        errorLocation(errorItem.location, fileName),
+      ]);
+
+    case "DuplicateFragmentNameError":
+      return PP.hcat([
+        "Fragment ",
+        errorItem.name,
+        " is already defined",
+        errorLocation(errorItem.location, fileName),
+      ]);
+
+    case "DuplicateTokenNameError":
+      return PP.hcat([
+        "Token ",
+        errorItem.name,
+        " is already defined",
+        errorLocation(errorItem.location, fileName),
+      ]);
+
+    case "FeatureNotImplementedError":
+      return PP.hcat([
+        'Feature "',
+        errorItem.nature,
+        '" it not yet implemented',
+        errorLocation(errorItem.location, fileName),
+      ]);
+
+    case "MinusOperandNotCharacterClassError":
+      return PP.hcat([
+        "Minus operator applies only to character class expressions rather than regular expressions",
+        errorLocation(errorItem.location, fileName),
+      ]);
+
+    case "NotExpectsCharacterClassError":
+      return PP.hcat([
+        "Not operator applies only to a character class expression rather than to a regular expression",
+        errorLocation(errorItem.location, fileName),
+      ]);
+
+    case "RangeOperandNotCharactersError":
+      return PP.hcat([
+        "Range operator applies only to character class expressions rather than regular expressions",
+        errorLocation(errorItem.location, fileName),
+      ]);
+
+    case "UnionOperandNotCharacterClassError":
+      return PP.hcat([
+        "Union operator applies only to character class expressions rather than regular expressions",
+        errorLocation(errorItem.location, fileName),
+      ]);
+
+    case "UnknownFragmentIdentifierError":
+      return PP.hcat([
+        "Unknown fragment ",
+        errorItem.name,
+        errorLocation(errorItem.location, fileName),
+      ]);
+  }
+}
+
+export function ttokenAsString(ttoken: TToken): string {
+  switch (ttoken) {
+    case TToken.Chr:
+      return "chr";
+    case TToken.Comments:
+      return "comments";
+    case TToken.Extend:
+      return "extend";
+    case TToken.Fragments:
+      return "fragments";
+    case TToken.Nested:
+      return "nested";
+    case TToken.To:
+      return "to";
+    case TToken.Tokens:
+      return "tokens";
+    case TToken.Whitespace:
+      return "whitespace";
+    case TToken.Backslash:
+      return '"\\"';
+    case TToken.Bang:
+      return '"!"';
+    case TToken.Bar:
+      return '"|"';
+    case TToken.Equal:
+      return '"="';
+    case TToken.LBracket:
+      return '"["';
+    case TToken.LCurly:
+      return '"{"';
+    case TToken.LParen:
+      return '"("';
+    case TToken.Minus:
+      return '"-"';
+    case TToken.Plus:
+      return '"+"';
+    case TToken.RBracket:
+      return '"]"';
+    case TToken.RCurly:
+      return '"}"';
+    case TToken.RParen:
+      return '")"';
+    case TToken.Semicolon:
+      return '";"';
+    case TToken.Identifier:
+      return "identifier";
+    case TToken.LiteralCharacter:
+      return "literal character";
+    case TToken.LiteralInt:
+      return "literal integer";
+    case TToken.LiteralString:
+      return "literal string";
+    case TToken.EOS:
+      return "end of content";
+    case TToken.ERROR:
+      return "unknown token";
+  }
+}
+
+export function errorLocation(
+  location: Location,
+  fileName: string | undefined,
+): string {
+  const fileNamePrefix = (fileName == undefined) ? " at " : ` at ${fileName} `;
+
+  if (location.tag == "Coordinate") {
+    return `${fileNamePrefix}${location.line}:${location.column}`;
+  } else if (location.start.line == location.end.line) {
+    return `${fileNamePrefix}${location.start.line}:${location.start.column}-${location.end.column}`;
+  } else {
+    return `${fileNamePrefix}${location.start.line}:${location.start.column}-${location.end.line}:${location.end.column}`;
+  }
+}
+
+export function commaOr(items: Array<PP.Doc | string>): PP.Doc {
+  if (items.length == 0) {
+    return PP.blank;
+  } else {
+    const result = [];
+    let index = 0;
+
+    while (true) {
+      if (index == items.length - 1) {
+        if (index > 0) {
+          result.push(" or ");
+        }
+        result.push(items[index]);
+        break;
+      } else if (index > 0) {
+        result.push(", ");
+      }
+      result.push(items[index]);
+      index += 1;
+    }
+
+    return PP.hcat(result);
+  }
+}
