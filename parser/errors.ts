@@ -2,6 +2,7 @@ import * as PP from "https://raw.githubusercontent.com/littlelanguages/deno-lib-
 
 import { Token, TToken } from "./scanner.ts";
 import { Location } from "./location.ts";
+import { toString } from "https://raw.githubusercontent.com/littlelanguages/scanpiler-deno-lib/0.1.0/location.ts";
 
 export type Errors = Array<ErrorItem>;
 
@@ -226,14 +227,6 @@ export function ttokenAsString(ttoken: TToken): string {
 export function errorLocation(
   location: Location,
   fileName: string | undefined,
-): string {
-  const fileNamePrefix = (fileName == undefined) ? " at " : ` at ${fileName} `;
-
-  if (location.tag == "Coordinate") {
-    return `${fileNamePrefix}${location.line}:${location.column}`;
-  } else if (location.start.line == location.end.line) {
-    return `${fileNamePrefix}${location.start.line}:${location.start.column}-${location.end.column}`;
-  } else {
-    return `${fileNamePrefix}${location.start.line}:${location.start.column}-${location.end.line}:${location.end.column}`;
-  }
+): PP.Doc {
+  return PP.hcat([" at ", toString(location, fileName)]);
 }

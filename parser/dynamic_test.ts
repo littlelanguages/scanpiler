@@ -1,7 +1,7 @@
 import { translate, all } from "./dynamic.ts";
 import {
   assertEquals,
-} from "https://deno.land/std@0.63.0/testing/asserts.ts";
+} from "../testing/asserts.ts";
 import {
   Definition,
   LiteralStringRegEx,

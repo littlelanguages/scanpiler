@@ -1,6 +1,4 @@
-import {
-  assertThrows,
-} from "https://deno.land/std@0.63.0/testing/asserts.ts";
+import { assertThrows } from "../testing/asserts.ts";
 import { Definition } from "./definition.ts";
 import { setOf } from "../data/set.ts";
 
