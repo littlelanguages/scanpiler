@@ -3,7 +3,7 @@ import { Location } from "./location.ts";
 
 export type Errors = Array<ErrorItem>;
 
-type ErrorItem =
+export type ErrorItem =
   | StaticSyntaxError
   | ChrOutOfRangeError
   | CommentNotCharacterClassError
