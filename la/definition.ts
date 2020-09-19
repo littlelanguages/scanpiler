@@ -6,13 +6,22 @@ export class Definition {
   whitespace: Set<number> = rangeSet(0, 32);
   private fragments: Map<string, RegEx | Set<number>> = new Map();
 
-  addToken(name: string, pattern: RegEx): Definition {
+  addToken(
+    name: string,
+    pattern: RegEx,
+    position: number | undefined = undefined,
+  ): Definition {
     if (this.hasToken(name)) {
       throw { tag: "TokenNameExistsError", name };
-    } else {
+    } else if (position == undefined || position >= this.tokens.length - 1) {
       this.tokens.push([name, pattern]);
-      return this;
+    } else if (position == 0) {
+      this.tokens.unshift([name, pattern]);
+    } else {
+      this.tokens.splice(position, 0, [name, pattern]);
     }
+
+    return this;
   }
 
   token(name: string): RegEx | undefined {
@@ -52,6 +61,16 @@ export class Definition {
 
   hasFragment(name: string): boolean {
     return this.fragments.has(name);
+  }
+
+  literalMatch(text: string): [string, RegEx] | undefined {
+    for (const token of this.tokens) {
+      if (token[1].literalMatch(text) == text.length) {
+        return token;
+      }
+    }
+
+    return undefined;
   }
 }
 
