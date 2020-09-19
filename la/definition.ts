@@ -82,7 +82,9 @@ export class LineComment extends Comment {
   }
 }
 
-export abstract class RegEx {}
+export abstract class RegEx {
+  abstract literalMatch(text: string): number | undefined;
+}
 
 export class CharacterClassRegEx extends RegEx {
   cc: Set<number>;
@@ -90,6 +92,12 @@ export class CharacterClassRegEx extends RegEx {
   constructor(cc: Set<number>) {
     super();
     this.cc = cc;
+  }
+
+  literalMatch(text: string): number | undefined {
+    return (this.cc.size == 1 && this.cc.has(text.charCodeAt(0)))
+      ? 1
+      : undefined;
   }
 }
 
@@ -100,6 +108,16 @@ export class LiteralStringRegEx extends RegEx {
     super();
     this.value = value;
   }
+
+  literalMatch(text: string): number | undefined {
+    const length = this.value.length;
+
+    if (text.substr(0, length) == this.value) {
+      return length;
+    } else {
+      return undefined;
+    }
+  }
 }
 
 export class ManyRegEx extends RegEx {
@@ -108,6 +126,10 @@ export class ManyRegEx extends RegEx {
   constructor(regEx: RegEx) {
     super();
     this.regEx = regEx;
+  }
+
+  literalMatch(text: string): number | undefined {
+    return undefined;
   }
 }
 
@@ -118,6 +140,10 @@ export class OptionalRegEx extends RegEx {
     super();
     this.regEx = regEx;
   }
+
+  literalMatch(text: string): number | undefined {
+    return undefined;
+  }
 }
 
 export class SequenceRegEx extends RegEx {
@@ -127,6 +153,21 @@ export class SequenceRegEx extends RegEx {
     super();
     this.regExs = values;
   }
+
+  literalMatch(text: string): number | undefined {
+    let totalMatched: number | undefined = 0;
+
+    for (const regex of this.regExs) {
+      const match = regex.literalMatch(text);
+      if (match == undefined) {
+        return undefined;
+      } else {
+        totalMatched += match;
+        text = text.substr(match);
+      }
+    }
+    return totalMatched;
+  }
 }
 
 export class AlternativeRegEx extends RegEx {
@@ -135,5 +176,9 @@ export class AlternativeRegEx extends RegEx {
   constructor(values: Array<RegEx>) {
     super();
     this.regExs = values;
+  }
+
+  literalMatch(text: string): number | undefined {
+    return undefined;
   }
 }
