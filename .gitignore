@@ -1,2 +1,2 @@
-*.dot
-t/*
+parser/scanner.ts
+
