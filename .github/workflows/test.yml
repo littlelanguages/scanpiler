@@ -21,7 +21,9 @@ jobs:
         uses: denolib/setup-deno@v2
         with:
           deno-version: ${{ matrix.deno-version }}
+      - name: Build scanpiler
+        run: .bin/build.sh
       - name: Lint scanpiler
         run: deno fmt --check
       - name: Test scanpiler
-        run: deno test --allow-none
+        run: .bin/test.sh
