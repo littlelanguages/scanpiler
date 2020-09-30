@@ -1,6 +1,6 @@
 import * as Assert from "../testing/asserts.ts";
 
-import * as PP from "https://raw.githubusercontent.com/littlelanguages/deno-lib-text-prettyprint/0.3.0/mod.ts";
+import * as PP from "https://raw.githubusercontent.com/littlelanguages/deno-lib-text-prettyprint/0.3.1/mod.ts";
 import {
   range,
 } from "https://raw.githubusercontent.com/littlelanguages/scanpiler-deno-lib/0.1.0/location.ts";
