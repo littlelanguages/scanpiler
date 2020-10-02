@@ -1,0 +1,32 @@
+uses "./scanpiler.llld";
+
+Definition: 
+    ["extend" LiteralString ";"]
+    ["tokens" {Identifier "=" Expr ";"}]
+    ["comments" {Comment ";"}]
+    ["whitespace" Expr ";"]
+    ["fragments" {Identifier "=" Expr ";"}];
+
+Comment: Expr ["to" Expr ["nested"]];
+
+Expr: SequenceExpr {"|" SequenceExpr};
+
+SequenceExpr: UnionExpr {UnionExpr};
+
+UnionExpr: MinusExpr {"+" MinusExpr};
+
+MinusExpr: NotExpr {"\" NotExpr};
+
+NotExpr: ["!"] RangeExpr;
+
+RangeExpr: Factor ["-" Factor];
+
+Factor
+  : "chr" "(" LiteralInt ")" 
+  | LiteralCharacter 
+  | LiteralString
+  | "(" Expr ")"
+  | "{" Expr "}"
+  | "[" Expr "]"
+  | Identifier
+  ;

@@ -1,4 +1,4 @@
-import { Location, combine } from "./location.ts";
+import { Location } from "./location.ts";
 
 export type Definition = {
   tag: "Definition";
@@ -120,11 +120,3 @@ export type AlternativeExpr = {
   location: Location;
   values: Array<Expr>;
 };
-
-export function locationOf(value: Array<Expr>): Location {
-  return combine(value[0].location, last(value).location);
-}
-
-function last<T>(vs: Array<T>): T {
-  return vs[vs.length - 1];
-}

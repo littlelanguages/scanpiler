@@ -1,5 +1,5 @@
 import { assertEquals } from "../testing/asserts.ts";
-import { parseExpr, parseDefinition } from "./parser.ts";
+import { locationOf, parseExpr, parseDefinition } from "./parser.ts";
 import {
   Expr,
   LiteralString,
@@ -15,7 +15,6 @@ import {
   NotExpr,
   MinusExpr,
   UnionExpr,
-  locationOf,
   SequenceExpr,
   AlternativeExpr,
   BlockComment,

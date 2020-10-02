@@ -1,5 +1,5 @@
 import { assertEquals } from "../testing/asserts.ts";
-import { Token, TToken, mkScanner } from "./scanner.ts";
+import { Token, TToken, mkScanner } from "./scanpiler-scanner.ts";
 import { mkCoordinate, range } from "./location.ts";
 
 Deno.test("empty stream returns an EOS as token", () => {
@@ -41,7 +41,7 @@ Deno.test("\\ ! | = [ { ( - + ] } ) ;", () => {
     [TToken.LBracket, mkCoordinate(8, 1, 9), "["],
     [TToken.LCurly, mkCoordinate(10, 1, 11), "{"],
     [TToken.LParen, mkCoordinate(12, 1, 13), "("],
-    [TToken.Minus, mkCoordinate(14, 1, 15), "-"],
+    [TToken.Dash, mkCoordinate(14, 1, 15), "-"],
     [TToken.Plus, mkCoordinate(16, 1, 17), "+"],
     [TToken.RBracket, mkCoordinate(18, 1, 19), "]"],
     [TToken.RCurly, mkCoordinate(20, 1, 21), "}"],

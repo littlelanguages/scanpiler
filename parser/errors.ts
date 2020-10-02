@@ -1,12 +1,13 @@
 import * as PP from "https://raw.githubusercontent.com/littlelanguages/deno-lib-text-prettyprint/0.3.1/mod.ts";
 
-import { Token, TToken } from "./scanner.ts";
 import { Location, toString } from "./location.ts";
+import { SyntaxError } from "./scanpiler-parser.ts";
+import { TToken } from "./scanpiler-scanner.ts";
 
 export type Errors = Array<ErrorItem>;
 
 export type ErrorItem =
-  | StaticSyntaxError
+  | SyntaxError
   | ChrOutOfRangeError
   | CommentNotCharacterClassError
   | DuplicateFragmentNameError
@@ -17,12 +18,6 @@ export type ErrorItem =
   | RangeOperandNotCharactersError
   | UnionOperandNotCharacterClassError
   | UnknownFragmentIdentifierError;
-
-export type StaticSyntaxError = {
-  tag: "StaticSyntaxError";
-  found: Token;
-  expected: Array<TToken>;
-};
 
 export type ChrOutOfRangeError = {
   tag: "ChrOutOfRangeError";
@@ -84,7 +79,7 @@ export function asDoc(
   fileName: string | undefined = undefined,
 ): PP.Doc {
   switch (errorItem.tag) {
-    case "StaticSyntaxError":
+    case "SyntaxError":
       return PP.hcat([
         "Unexpected token ",
         ttokenAsString(errorItem.found[0]),
@@ -196,7 +191,7 @@ export function ttokenAsString(ttoken: TToken): string {
       return '"{"';
     case TToken.LParen:
       return '"("';
-    case TToken.Minus:
+    case TToken.Dash:
       return '"-"';
     case TToken.Plus:
       return '"+"';

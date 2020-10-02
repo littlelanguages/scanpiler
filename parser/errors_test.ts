@@ -5,12 +5,12 @@ import {
   range,
 } from "https://raw.githubusercontent.com/littlelanguages/scanpiler-deno-lib/0.1.0/location.ts";
 import { asDoc } from "./errors.ts";
-import { TToken } from "./scanner.ts";
+import { TToken } from "./scanpiler-scanner.ts";
 
-Deno.test("errors - StaticSyntaxError", () => {
+Deno.test("errors - SyntaxError", () => {
   assertRenderEquals(
     asDoc({
-      tag: "StaticSyntaxError",
+      tag: "SyntaxError",
       found: [TToken.Bang, range(0, 1, 2, 3, 4, 5), "!"],
       expected: [TToken.Bar, TToken.Comments],
     }),
