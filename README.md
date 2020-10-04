@@ -3,7 +3,7 @@
 This project is an implementation of a backtracking lexical automaton designed specifically for specifying and generating scanners or lexical analysers for programming and domain languages.  The project has the following features:
 
 - Provides a syntax to define a programming language's lexical structure,
-- Parsers the input file into an internal structure
+- Parsers the input file into an internal structure, and
 - Creates the automaton for the internal structure
 
 ## See Also
