@@ -2,8 +2,8 @@ import { Definition } from "./definition.ts";
 import { FA } from "./fa.ts";
 import * as NFA from "./nfa.ts";
 import {
-  CharacterClassRegEx,
   BlockComment,
+  CharacterClassRegEx,
   LineComment,
   RegEx,
 } from "./definition.ts";

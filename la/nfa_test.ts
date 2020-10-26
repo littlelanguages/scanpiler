@@ -1,17 +1,13 @@
 import { assertEquals } from "../testing/asserts.ts";
+import { Builder, epsilonTransitions, transitiveClosure } from "./nfa.ts";
+import { emptySet, rangeSet, setOf } from "../data/set.ts";
 import {
-  Builder,
-  epsilonTransitions,
-  transitiveClosure,
-} from "./nfa.ts";
-import { rangeSet, emptySet, setOf } from "../data/set.ts";
-import {
+  AlternativeRegEx,
   CharacterClassRegEx,
   LiteralStringRegEx,
   ManyRegEx,
   OptionalRegEx,
   SequenceRegEx,
-  AlternativeRegEx,
 } from "./definition.ts";
 import { Node } from "./fa.ts";
 

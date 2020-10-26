@@ -8,7 +8,7 @@ import {
   SequenceRegEx,
 } from "./definition.ts";
 import { emptySet, setOf, union } from "../data/set.ts";
-import { Node, NodeRef, FA } from "./fa.ts";
+import { FA, Node, NodeRef } from "./fa.ts";
 
 export class Builder<T> {
   private nextNodeID = 0;

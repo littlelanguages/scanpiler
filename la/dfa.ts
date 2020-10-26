@@ -1,17 +1,14 @@
-import {
-  epsilonTransitions,
-  transitiveClosure,
-} from "./nfa.ts";
+import { epsilonTransitions, transitiveClosure } from "./nfa.ts";
 import {
   emptySet,
-  isEmpty,
   first,
-  union,
-  setOf,
   intersection,
+  isEmpty,
   isEqual,
+  setOf,
+  union,
 } from "../data/set.ts";
-import { Node, NodeRef, FA } from "./fa.ts";
+import { FA, Node, NodeRef } from "./fa.ts";
 
 export function fromNFA<T>(nfa: FA<T>): FA<T> {
   const epsilonClosure = transitiveClosure(epsilonTransitions(nfa));

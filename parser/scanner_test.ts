@@ -1,5 +1,5 @@
 import { assertEquals } from "../testing/asserts.ts";
-import { Token, TToken, mkScanner } from "./scanpiler-scanner.ts";
+import { mkScanner, Token, TToken } from "./scanpiler-scanner.ts";
 import { mkCoordinate, range } from "./location.ts";
 
 Deno.test("empty stream returns an EOS as token", () => {

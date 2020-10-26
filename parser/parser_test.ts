@@ -1,26 +1,26 @@
 import { assertEquals } from "../testing/asserts.ts";
-import { locationOf, parseExpr, parseDefinition } from "./parser.ts";
+import { locationOf, parseDefinition, parseExpr } from "./parser.ts";
 import {
-  Expr,
-  LiteralString,
-  IdentifierReference,
-  Comment,
-  Definition,
-  ChrExpr,
-  LiteralCharacterExpr,
-  ParenExpr,
-  ManyExpr,
-  OptionalExpr,
-  RangeExpr,
-  NotExpr,
-  MinusExpr,
-  UnionExpr,
-  SequenceExpr,
   AlternativeExpr,
   BlockComment,
+  ChrExpr,
+  Comment,
+  Definition,
+  Expr,
+  IdentifierReference,
   LineComment,
+  LiteralCharacterExpr,
+  LiteralString,
+  ManyExpr,
+  MinusExpr,
+  NotExpr,
+  OptionalExpr,
+  ParenExpr,
+  RangeExpr,
+  SequenceExpr,
+  UnionExpr,
 } from "./ast.ts";
-import { mkCoordinate, range, Location, combine } from "./location.ts";
+import { combine, Location, mkCoordinate, range } from "./location.ts";
 import { right } from "../data/either.ts";
 
 testExprEquals(

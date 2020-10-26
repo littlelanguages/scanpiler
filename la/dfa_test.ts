@@ -3,11 +3,11 @@ import { assertEquals } from "../testing/asserts.ts";
 import { Builder } from "./nfa.ts";
 import {
   CharacterClassRegEx,
-  SequenceRegEx,
   ManyRegEx,
   OptionalRegEx,
+  SequenceRegEx,
 } from "./definition.ts";
-import { Node, FA } from "./fa.ts";
+import { FA, Node } from "./fa.ts";
 import { setOf } from "../data/set.ts";
 
 const a = setOf(97);

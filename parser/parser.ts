@@ -2,15 +2,14 @@ import { Comment, Definition, Expr } from "./ast.ts";
 import { Either } from "../data/either.ts";
 import { Errors } from "./errors.ts";
 import * as Parser from "./scanpiler-parser.ts";
-import { Token, mkScanner } from "./scanpiler-scanner.ts";
-import { Location, combine } from "./location.ts";
+import { mkScanner, Token } from "./scanpiler-scanner.ts";
+import { combine, Location } from "./location.ts";
 
 export const parseDefinition = (input: string): Either<Errors, Definition> =>
   Parser.parseDefinition(input, visitor).mapLeft((e) => [e]);
 
-export function parseExpr(input: string): Expr {
-  return Parser.mkParser(mkScanner(input), visitor).expr();
-}
+export const parseExpr = (input: string): Expr =>
+  Parser.mkParser(mkScanner(input), visitor).expr();
 
 const visitor: Parser.Visitor<
   Definition,

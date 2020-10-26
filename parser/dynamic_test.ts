@@ -1,21 +1,19 @@
-import { translate, all } from "./dynamic.ts";
+import { all, translate } from "./dynamic.ts";
+import { assertEquals } from "../testing/asserts.ts";
 import {
-  assertEquals,
-} from "../testing/asserts.ts";
-import {
+  AlternativeRegEx,
+  BlockComment,
+  CharacterClassRegEx,
   Definition,
+  LineComment,
   LiteralStringRegEx,
   ManyRegEx,
-  CharacterClassRegEx,
   OptionalRegEx,
   SequenceRegEx,
-  AlternativeRegEx,
-  LineComment,
-  BlockComment,
 } from "./../la/definition.ts";
-import { right, left } from "../data/either.ts";
-import { range, mkCoordinate } from "./location.ts";
-import { setOf, minus, rangeSet, union } from "../data/set.ts";
+import { left, right } from "../data/either.ts";
+import { mkCoordinate, range } from "./location.ts";
+import { minus, rangeSet, setOf, union } from "../data/set.ts";
 
 Deno.test("Dynamic - translate - empty", () => {
   assertEquals(translate(""), right(new Definition()));

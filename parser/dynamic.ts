@@ -1,27 +1,27 @@
 import * as AST from "./ast.ts";
-import { Either, right, left } from "../data/either.ts";
+import { Either, left, right } from "../data/either.ts";
 import { Errors } from "./errors.ts";
 import {
+  AlternativeRegEx,
+  BlockComment,
+  CharacterClassRegEx,
+  Comment,
   Definition,
-  RegEx,
+  LineComment,
   LiteralStringRegEx,
   ManyRegEx,
-  CharacterClassRegEx,
-  SequenceRegEx,
-  AlternativeRegEx,
-  Comment,
-  LineComment,
-  BlockComment,
   OptionalRegEx,
+  RegEx,
+  SequenceRegEx,
 } from "./../la/definition.ts";
 import { parseDefinition } from "./parser.ts";
 import {
-  setOf,
-  isSingleton,
-  rangeSet,
-  first,
-  minus,
   emptySet,
+  first,
+  isSingleton,
+  minus,
+  rangeSet,
+  setOf,
   union,
 } from "../data/set.ts";
 
